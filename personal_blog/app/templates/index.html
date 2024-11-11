@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>king.dev</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%; /* Full height for the body */
+            margin: 0;    /* Remove default margin */
+            display: flex;
+            flex-direction: column; /* Stack children vertically */
+        }
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+        }
+        nav {
+            background-color: #1f1f1f;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #bb86fc;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            flex: 1; /* This makes the container take up all available space */
+        }
+        .about {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .post {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        h1 {
+            text-align: center;
+            color: #bb86fc;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #a0a0a0;
+            padding: 20px; /* Add some padding for the footer */
+            background-color: #1f1f1f; /* Optional: Add background color to footer */
+        }
+        .social-links {
+            margin-top: 10px;
+        }
+        .social-links a {
+            color: #e0e0e0;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        .social-links a:hover {
+            color: #bb86fc;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <h2><a href="/index">king.dev</a></h2>
+    <div>
+        <a href="/blog">Blog</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Welcome to the mind of an always curious, always thinking, always solving</h1>
+    <div class="about">
+        <h3>About Me</h3>
+        <p>Hey there! pleased to meet you, <br> I'm King, a CS major building from Oklahoma City. I'm profoundly passionate and curious about a lot of things 
+        specifically AI, blockchain, math, and physics. When I'm not studying I like playing chess, working out or just spending time with my family.
+        <br><br>
+        </p>
+    </div>
+
+    <!-- Posts Section -->
+    <div class="posts">
+        <h3>Recent Posts</h3>
+        {% for post in posts %}
+        <div class="post">
+            <h4>{{ post.title }}</h4>
+            <p>{{ post.description }}</p>
+            <a href="{{ url_for('view_post', post_id=post.id) }}" style="color: #bb86fc;">Read more</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Bamiboy. All rights reserved.</p>
+    <div class="social-links">
+        <a href="https://twitter.com/yourprofile" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://linkedin.com/in/yourprofile" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/yourprofile" target="_blank"><i class="fab fa-github"></i></a>
+    </div>
+</footer>
+
+</body>
+</html>

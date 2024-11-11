@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Admin Dashboard</h1>
+
+<div class="dashboard">
+    <!-- Section: Create or Edit Post -->
+    <div class="section create-edit-post">
+        <h2>{{ post_form.title.data if post_form.title.data else "Create New Post" }}</h2>
+        <form method="POST" action="{{ url_for('save_post') }}">
+            {{ post_form.hidden_tag() }}
+            <div class="form-group">
+                <label for="title">Title:</label>
+                {{ post_form.title(class="form-control", size=32) }}
+            </div>
+            <div class="form-group">
+                <label for="content">Content:</label>
+                {{ post_form.content(class="form-control", rows=5) }}
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">{{ post_form.submit.label.text }}</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Section: View All Posts -->
+    <div class="section view-posts">
+        <h2>All Posts</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                <tr>
+                    <td>{{ post.title }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-secondary">Edit</a>
+                        <a href="{{ url_for('delete_post', post_id=post.id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Section: Post Previews -->
+    <div class="section post-previews">
+        <h2>Your Post Previews</h2>
+        {% for post in posts %}
+        <div class="post-preview">
+            <h4>{{ post.title }}</h4>
+            <p>{{ post.content[:100] }}{% if post.content|length > 100 %}...{% endif %}</p>
+            <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-secondary">Edit</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+    }
+
+    .dashboard {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .section {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    h1, h2 {
+        color: #444;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input[type="text"], textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    button {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        margin-right: 5px;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: #343a40;
+        color: white;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    a:hover {
+        background-color: #f0f0f0;
+    }
+
+    /* Post Previews Styling */
+    .post-preview {
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #fff;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 600px) {
+        .dashboard {
+            padding: 10px;
+        }
+
+        .section {
+            padding: 10px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 10px;
+        }
+    }
+</style>
+{% endblock %}
